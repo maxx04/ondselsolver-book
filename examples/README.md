@@ -18,10 +18,11 @@ cmake --build examples/build
 - `05-freecad-headless` – FreeCAD-App-GUI-Smoke-Test (`./run.sh`) und optionaler Headless-Test (`./run-headless.sh`)
 - `06-asmt-structure` – ASMT-ähnliche Datenstruktur mit Teilen und Gelenken als Brücke zum Solver
 - `07-ondselsolver-real-asmt` – echte `.asmt`-Fixtures werden mit OndselSolver geladen, gelöst und zurückgeschrieben
+- `08-ondselsolver-api` – ASMT laden und inspizieren sowie Part-, Joint-, Gravity- und Parameter-API aus C++ verwenden
 
 Die GUI-Makros verwenden standardmäßig `~/freecad/App_weekly/freecad.App`; ein anderer AppImage-Pfad lässt sich über `FREECAD_APP` setzen. Die Beispiele `01` bis `03` und `06` sind eigenständige C++-Konsolenprogramme und benötigen kein FreeCAD-AppImage.
 
-Beispiel `07` baut OndselSolver aus dem Submodul `vendor/OndselSolver` und ist deshalb nicht Teil des schnellen Umbrella-Builds. Die einzelnen Eingaben und Befehle stehen in [`07-ondselsolver-real-asmt/README.md`](./07-ondselsolver-real-asmt/README.md).
+Die Beispiele `07` und `08` bauen OndselSolver aus dem Submodul `vendor/OndselSolver` und sind deshalb nicht Teil des schnellen Umbrella-Builds. Eingaben und Befehle stehen in [`07-ondselsolver-real-asmt/README.md`](./07-ondselsolver-real-asmt/README.md) und [`08-ondselsolver-api/README.md`](./08-ondselsolver-api/README.md). Der aktuelle Joint-Serializer ist unter GCC nicht roundtrip-fähig; Beispiel 08 dokumentiert den reproduzierten Randfall.
 
 ## Praxisbezug
 

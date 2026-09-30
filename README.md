@@ -27,6 +27,7 @@ Falls das Submodul bei einem normalen Clone noch fehlt: `git submodule update --
 
 ## Inhaltsübersicht
 
+- **Teil I – Grundlagen, FreeCAD und ASMT**
 - 00-arbeitsprinzipien.md – Grundprinzipien und Arbeitsregeln für das Buch
 - 01-was-ist-ondselsolver.md – Einstieg, Begriff, Zweck, Rolle in FreeCAD
 - 02-wie-funktioniert-ondselsolver.md – Rechenmodell, Kinematik, Constraints, Newton/Iteration
@@ -38,6 +39,14 @@ Falls das Submodul bei einem normalen Clone noch fehlt: `git submodule update --
 - 08-freecad-app-ubuntu-und-dash-icon.md – FreeCAD AppImage unter Ubuntu einrichten und im Dash anheften
 - 09-konkrete-ondselsolver-asmt-beispiele.md – echte ASMT-Fixtures mit OndselSolver laden, lösen und zurückschreiben
 - 10-anhang-asmt-format-stand-2026-09-30.md – aktueller ASMT-Stand, recherchierte Quellen, Parserstruktur und Grenzen
+- **Teil II – OndselSolver-Programmierschnittstelle**
+- 11-programmierschnittstelle-ueberblick.md – C++-Schichtenmodell, Einstieg, Laden und Lebenszyklus
+- 12-assembly-koerper-und-referenzen.md – Assembly-, Part-, Marker- und räumliche Funktionen
+- 13-joints-und-kinematische-bindungen.md – Jointklassen, Markerreferenzen und kinematische Bindungen
+- 14-bewegungen-kraefte-und-analyseparameter.md – Motions, Limits, Kräfte, Einheiten und Simulationsparameter
+- 15-solve-ergebnisse-und-funktionskatalog.md – Solve-/Ergebnisfunktionen und Klassifikation des numerischen Kerns
+
+Teil II beschreibt die fachliche ASMT-Anwendungsoberfläche und ordnet die wichtigsten Funktionsfamilien des Solverkerns ein. Die vielen internen Methoden der Numerik- und Matrixklassen sind keine pauschal stabile Client-API; für konkrete Integrationen ist der Quellstand im Submodul maßgeblich.
 
 ## Beispielordner
 
@@ -48,6 +57,7 @@ Falls das Submodul bei einem normalen Clone noch fehlt: `git submodule update --
 - `examples/05-freecad-headless` – FreeCAD App GUI-Smoke-Test und optionaler Headless-Test
 - `examples/06-asmt-structure` – strukturierte ASMT-Datenmodell-Demo
 - `examples/07-ondselsolver-real-asmt` – echter OndselSolver-Solve mit `__cubes.asmt`, `fourbar.asmt` und `piston.asmt`
+- `examples/08-ondselsolver-api` – ausführbare ASMT-API-Beispiele zu Part, Joint, Gravitation und Simulationsparametern
 
 Die GUI-Makros starten standardmäßig `~/freecad/App_weekly/freecad.App`. Details zur AppImage-Installation und zum Dash-Eintrag stehen in Kapitel 08.
 
