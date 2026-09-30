@@ -1,0 +1,26 @@
+import FreeCAD as App
+import FreeCADGui as Gui
+
+document_name = "OndselSolverPipelineDemo"
+if document_name in App.listDocuments():
+    App.closeDocument(document_name)
+
+doc = App.newDocument(document_name)
+base = doc.addObject("Part::Box", "Base")
+base.Label = "Fixierte Basis"
+base.Length = 40
+base.Width = 20
+base.Height = 10
+
+arm = doc.addObject("Part::Box", "Arm")
+arm.Label = "Solver-Ergebnis (didaktisch)"
+arm.Length = 30
+arm.Width = 10
+arm.Height = 10
+arm.Placement.Base = App.Vector(25, 0, 0)
+doc.recompute()
+
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+print("FreeCAD App-Pipeline-Demo geladen:", doc.Name)
+print("Beispielposition des Arms:", arm.Placement.Base)

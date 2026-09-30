@@ -1,0 +1,16 @@
+import FreeCAD as App
+import FreeCADGui as Gui
+
+document_name = "FreeCADAppSmokeTest"
+if document_name in App.listDocuments():
+    App.closeDocument(document_name)
+
+doc = App.newDocument(document_name)
+box = doc.addObject("Part::Box", "AppTestBox")
+box.Label = "FreeCAD AppImage-Test"
+doc.recompute()
+
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+print("FreeCAD App gestartet:", App.Version())
+print("GUI-Dokument erstellt:", doc.Name)

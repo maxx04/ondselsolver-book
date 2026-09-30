@@ -1,0 +1,3 @@
+[submodule "vendor/OndselSolver"]
+	path = vendor/OndselSolver
+	url = https://github.com/FreeCAD/OndselSolver.git
