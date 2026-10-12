@@ -12,3 +12,4 @@ __pycache__/
 # Erzeugtes Buch (./build.sh)
 buch.html
 buch.pdf
+buch-druck.html

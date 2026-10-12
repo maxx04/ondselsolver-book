@@ -21,13 +21,13 @@ Falls das Submodul bei einem normalen Clone noch fehlt: `git submodule update --
 ## Prinzip des Projekts
 
 1. Das Buch wird nur erweitert, nicht neu geschrieben.
-2. Neue Kapitel werden an passender Stelle in `buch.md` eingefügt; die Nummern vergibt der Build automatisch.
+2. Neue Kapitel werden direkt in der LaTeX-Quelldatei `buch.tex` ergänzt.
 3. Jedes Kapitel dokumentiert den aktuellen Stand, nicht eine historische Version.
 4. Zusätzliche Beispiele, Bug-Notizen und FreeCAD-spezifische Erkenntnisse werden als Ergänzungen angehängt.
 
-## Das Buch: `buch.md`
+## Das Buch: `buch.tex`
 
-Das ganze Buch steht in einer einzigen Datei, [`buch.md`](./buch.md). Kapitel, Abschnitte und Abbildungen tragen dort **keine festen Nummern**; sie werden beim Erzeugen automatisch vergeben. Wird ein Kapitel eingefügt oder verschoben, stimmen alle Nummern und Verweise nach dem nächsten Build wieder.
+Das ganze Buch steht in einer einzigen LaTeX-Datei, [`buch.tex`](./buch.tex). Das Inhaltsverzeichnis wird beim PDF-Build automatisch aktualisiert.
 
 Aufbau:
 
@@ -36,29 +36,13 @@ Aufbau:
 - **Teil II – OndselSolver-Programmierschnittstelle** (Kapitel 10–15)
 - **Anhang A** – ASMT-Format: dokumentierter Stand am 30.09.2026
 
-### HTML und PDF erzeugen
+### PDF erzeugen
 
 ```bash
-./build.sh        # erzeugt buch.html und buch.pdf
-./build.sh html   # nur buch.html
+./build.sh        # erzeugt buch.pdf aus buch.tex
 ```
 
-Benötigt werden `pandoc` und für die PDF Chromium oder Google Chrome (anderer Browser über `CHROME_BIN`). Mermaid-Diagramme lädt die HTML-Seite beim Anzeigen aus dem Netz. `buch.html` und `buch.pdf` sind Build-Ergebnisse und nicht im Repository.
-
-### Schreibregeln für Nummern, Bilder und Verweise
-
-| Was | So schreiben | Ergebnis |
-|---|---|---|
-| Kapitel | `# Titel {#kap-name}` | „7 Titel“ |
-| Abschnitt | `## Titel` oder `### Titel` | „7.2 Titel“, „7.2.1 Titel“ |
-| Überschrift ohne Nummer | `### Titel {.unnumbered}` | „Titel“ |
-| Neuer Teil | `# Titel {.teil}` | „Teil III – Titel“ |
-| Abbildung | `![Beschriftung](bilder/datei.png){#abb-name}` | „Abbildung 7.1: Beschriftung“ |
-| Verweis auf Kapitel | `siehe @kap-name` | „siehe Kapitel 7“ (als Link) |
-| Verweis auf Abschnitt | `siehe @abs-name` (Abschnitt mit `{#abs-name}`) | „siehe Abschnitt 7.2“ |
-| Verweis auf Abbildung | `siehe @abb-name` | „siehe Abbildung 7.1“ |
-
-Nur Bilder **mit** Beschriftung werden als Abbildung nummeriert. Bilder gehören in den Ordner `bilder/`. Ein Verweis auf eine unbekannte Marke erscheint als „??“, und der Build gibt eine Warnung aus. Die Nummerierung steckt in [`tools/nummerierung.lua`](./tools/nummerierung.lua), das Layout in [`tools/buch-kopf.html`](./tools/buch-kopf.html).
+Benötigt wird eine LaTeX-Engine (`lualatex`, `xelatex` oder `pdflatex`). Das Buch verwendet 12-pt-Text, einen linken und rechten Rand von jeweils 2 cm, Bitstream Vera Sans für den Fließtext und Cascadia Code für Code, sofern die Schriften installiert sind; andernfalls greifen die LaTeX-Standardschriften. `buch.pdf` ist ein Build-Ergebnis und nicht im Repository.
 
 ## Beispielordner
 
