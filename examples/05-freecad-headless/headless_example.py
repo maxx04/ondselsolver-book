@@ -1,11 +1,11 @@
-import FreeCAD
+import FreeCAD as App
 
 # Ein einfacher headless FreeCAD-Lauf:
 # - Dokument erzeugen
 # - einfache Objektdefinition
 # - Ausgabe in der Konsole
 
-doc = FreeCAD.newDocument("HeadlessDemo")
+doc = App.newDocument("HeadlessDemo")
 box = doc.addObject("Part::Box", "DemoBox")
 box.Length = 10
 box.Width = 20

@@ -9,3 +9,6 @@
 *.pyc
 __pycache__/
 .DS_Store
+# Erzeugtes Buch (./build.sh)
+buch.html
+buch.pdf

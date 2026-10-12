@@ -15,7 +15,7 @@ cmake --build examples/build
 - `02-iterative-solver` – Einfaches iteratives Korrigieren eines Fehls
 - `03-solver-data-model` – Strukturierung von Teil- und Joint-Daten
 - `04-freecad-pipeline` – C++-Pipeline-Demo plus echtes FreeCAD-GUI-Makro (`./run-app.sh`)
-- `05-freecad-headless` – FreeCAD-App-GUI-Smoke-Test (`./run.sh`) und optionaler Headless-Test (`./run-headless.sh`)
+- `05-freecad-headless` – FreeCAD-App-GUI-Smoke-Test (`./run.sh`) und optionaler Headless-Test (`./run-headless.sh`); `./update-weekly-appimage.sh` lädt die aktuelle FreeCAD-Weekly-AppImage nach `~/freecad/App_weekly/freecad.App`
 - `06-asmt-structure` – ASMT-ähnliche Datenstruktur mit Teilen und Gelenken als Brücke zum Solver
 - `07-ondselsolver-real-asmt` – echte `.asmt`-Fixtures werden mit OndselSolver geladen, gelöst und zurückgeschrieben
 - `08-ondselsolver-api` – ASMT laden und inspizieren sowie Part-, Joint-, Gravity- und Parameter-API aus C++ verwenden

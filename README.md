@@ -21,32 +21,44 @@ Falls das Submodul bei einem normalen Clone noch fehlt: `git submodule update --
 ## Prinzip des Projekts
 
 1. Das Buch wird nur erweitert, nicht neu geschrieben.
-2. Neue Kapitel werden nummeriert und in bestehende Verzeichnisse eingefügt.
+2. Neue Kapitel werden an passender Stelle in `buch.md` eingefügt; die Nummern vergibt der Build automatisch.
 3. Jedes Kapitel dokumentiert den aktuellen Stand, nicht eine historische Version.
 4. Zusätzliche Beispiele, Bug-Notizen und FreeCAD-spezifische Erkenntnisse werden als Ergänzungen angehängt.
 
-## Inhaltsübersicht
+## Das Buch: `buch.md`
 
-- **Teil I – Grundlagen, FreeCAD und ASMT**
-- 00-arbeitsprinzipien.md – Grundprinzipien und Arbeitsregeln für das Buch
-- 01-was-ist-ondselsolver.md – Einstieg, Begriff, Zweck, Rolle in FreeCAD
-- 02-wie-funktioniert-ondselsolver.md – Rechenmodell, Kinematik, Constraints, Newton/Iteration
-- 03-datenvorbereitung-und-ergebnisinterpretation.md – Vorbereitung von Daten für den Solver und Analyse der Resultate
-- 04-kommunikation-mit-freecad.md – Verbindung zwischen FreeCAD und OndselSolver
-- 05-freecad-beispiele-und-bibliotheken.md – reale FreeCAD-/Solver-Bibliotheken und Integrationsmuster
-- 06-formatbeschreibung-asmt.md – Verständnis des ASMT-Formats als Brücke zwischen CAD und Solver
-- 07-freecad-asmt-ondselsolver-flow.md – Praxisfluss: FreeCAD → ASMT/Assembly → OndselSolver → Rückgabe in FreeCAD
-- 08-freecad-app-ubuntu-und-dash-icon.md – FreeCAD AppImage unter Ubuntu einrichten und im Dash anheften
-- 09-konkrete-ondselsolver-asmt-beispiele.md – echte ASMT-Fixtures mit OndselSolver laden, lösen und zurückschreiben
-- 10-anhang-asmt-format-stand-2026-09-30.md – aktueller ASMT-Stand, recherchierte Quellen, Parserstruktur und Grenzen
-- **Teil II – OndselSolver-Programmierschnittstelle**
-- 11-programmierschnittstelle-ueberblick.md – C++-Schichtenmodell, Einstieg, Laden und Lebenszyklus
-- 12-assembly-koerper-und-referenzen.md – Assembly-, Part-, Marker- und räumliche Funktionen
-- 13-joints-und-kinematische-bindungen.md – Jointklassen, Markerreferenzen und kinematische Bindungen
-- 14-bewegungen-kraefte-und-analyseparameter.md – Motions, Limits, Kräfte, Einheiten und Simulationsparameter
-- 15-solve-ergebnisse-und-funktionskatalog.md – Solve-/Ergebnisfunktionen und Klassifikation des numerischen Kerns
+Das ganze Buch steht in einer einzigen Datei, [`buch.md`](./buch.md). Kapitel, Abschnitte und Abbildungen tragen dort **keine festen Nummern**; sie werden beim Erzeugen automatisch vergeben. Wird ein Kapitel eingefügt oder verschoben, stimmen alle Nummern und Verweise nach dem nächsten Build wieder.
 
-Teil II beschreibt die fachliche ASMT-Anwendungsoberfläche und ordnet die wichtigsten Funktionsfamilien des Solverkerns ein. Die vielen internen Methoden der Numerik- und Matrixklassen sind keine pauschal stabile Client-API; für konkrete Integrationen ist der Quellstand im Submodul maßgeblich.
+Aufbau:
+
+- Vorwort: Arbeitsprinzipien dieses Buches (ohne Nummer)
+- **Teil I – Grundlagen, FreeCAD und ASMT** (Kapitel 1–9)
+- **Teil II – OndselSolver-Programmierschnittstelle** (Kapitel 10–15)
+- **Anhang A** – ASMT-Format: dokumentierter Stand am 30.09.2026
+
+### HTML und PDF erzeugen
+
+```bash
+./build.sh        # erzeugt buch.html und buch.pdf
+./build.sh html   # nur buch.html
+```
+
+Benötigt werden `pandoc` und für die PDF Chromium oder Google Chrome (anderer Browser über `CHROME_BIN`). Mermaid-Diagramme lädt die HTML-Seite beim Anzeigen aus dem Netz. `buch.html` und `buch.pdf` sind Build-Ergebnisse und nicht im Repository.
+
+### Schreibregeln für Nummern, Bilder und Verweise
+
+| Was | So schreiben | Ergebnis |
+|---|---|---|
+| Kapitel | `# Titel {#kap-name}` | „7 Titel“ |
+| Abschnitt | `## Titel` oder `### Titel` | „7.2 Titel“, „7.2.1 Titel“ |
+| Überschrift ohne Nummer | `### Titel {.unnumbered}` | „Titel“ |
+| Neuer Teil | `# Titel {.teil}` | „Teil III – Titel“ |
+| Abbildung | `![Beschriftung](bilder/datei.png){#abb-name}` | „Abbildung 7.1: Beschriftung“ |
+| Verweis auf Kapitel | `siehe @kap-name` | „siehe Kapitel 7“ (als Link) |
+| Verweis auf Abschnitt | `siehe @abs-name` (Abschnitt mit `{#abs-name}`) | „siehe Abschnitt 7.2“ |
+| Verweis auf Abbildung | `siehe @abb-name` | „siehe Abbildung 7.1“ |
+
+Nur Bilder **mit** Beschriftung werden als Abbildung nummeriert. Bilder gehören in den Ordner `bilder/`. Ein Verweis auf eine unbekannte Marke erscheint als „??“, und der Build gibt eine Warnung aus. Die Nummerierung steckt in [`tools/nummerierung.lua`](./tools/nummerierung.lua), das Layout in [`tools/buch-kopf.html`](./tools/buch-kopf.html).
 
 ## Beispielordner
 
@@ -59,7 +71,7 @@ Teil II beschreibt die fachliche ASMT-Anwendungsoberfläche und ordnet die wicht
 - `examples/07-ondselsolver-real-asmt` – echter OndselSolver-Solve mit `__cubes.asmt`, `fourbar.asmt` und `piston.asmt`
 - `examples/08-ondselsolver-api` – ausführbare ASMT-API-Beispiele zu Part, Joint, Gravitation und Simulationsparametern
 
-Die GUI-Makros starten standardmäßig `~/freecad/App_weekly/freecad.App`. Details zur AppImage-Installation und zum Dash-Eintrag stehen in Kapitel 08.
+Die GUI-Makros starten standardmäßig `~/freecad/App_weekly/freecad.App`. Details zur AppImage-Installation und zum Dash-Eintrag stehen im Buch im Kapitel „FreeCAD AppImage unter Ubuntu und Dash-Icon“.
 
 ## Hinweis zu den Beispielen
 
