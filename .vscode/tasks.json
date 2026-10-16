@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Buch bauen",
+      "type": "shell",
+      "command": "./build.sh",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Kommentar-Kopie in Evince öffnen",
+      "type": "shell",
+      "command": "[ -f buch-kommentiert.pdf ] || cp buch.pdf buch-kommentiert.pdf; setsid -f evince buch-kommentiert.pdf >/dev/null 2>&1",
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Neue Kommentar-Kopie aus aktuellem Buch",
+      "type": "shell",
+      "command": "[ -f buch-kommentiert.pdf ] && mv buch-kommentiert.pdf buch-kommentiert-$(date +%Y%m%d-%H%M%S).pdf; cp buch.pdf buch-kommentiert.pdf; setsid -f evince buch-kommentiert.pdf >/dev/null 2>&1",
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
+    }
+  ]
+}
